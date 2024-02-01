@@ -24,7 +24,13 @@ public class RegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         Member member = new Member(null, username, password, email);
         if (memberService.userRegister(member)) {
-            System.out.println("用户注册服务执行成功");
+            // 注册成功
+            req.getRequestDispatcher("/views/member/register_ok.html")
+                    .forward(req, resp);
+        } else {
+            // 注册失败
+            req.getRequestDispatcher("/views/member/register_fail.html")
+                    .forward(req, resp);
         }
     }
     @Override
