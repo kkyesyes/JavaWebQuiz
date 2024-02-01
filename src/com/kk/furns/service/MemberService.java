@@ -8,8 +8,11 @@ import src.com.kk.furns.entity.Member;
  */
 public interface MemberService {
     // 用户注册
-    public boolean userRegister(Member member);
+    boolean userRegister(Member member);
+
+    // 用户登录
+    boolean userLogin(String username, String password);
 
     // 判断用户名是否存在
-    public boolean isExistsUsername(String username);
+    boolean isExistsUsername(String username);
 }

@@ -4,6 +4,7 @@ import src.com.kk.furns.dao.MemberDAO;
 import src.com.kk.furns.dao.impl.MemberDAOImpl;
 import src.com.kk.furns.entity.Member;
 import src.com.kk.furns.service.MemberService;
+import sun.security.provider.MD5;
 
 /**
  * @author KK
@@ -23,6 +24,21 @@ public class MemberServiceImpl implements MemberService {
             return false;
         }
         if (memberDAO.saveMember(member) == -1) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 用户登录服务
+     * @param username 用户名
+     * @param password 用户密码
+     * @return 登录成功返回 true，否则返回 false
+     */
+    @Override
+    public boolean userLogin(String username, String password) {
+        Member member = memberDAO.queryMemberByUsernameAndPassword(username, password);
+        if (member == null) {
             return false;
         }
         return true;
