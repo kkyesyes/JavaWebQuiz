@@ -23,7 +23,9 @@ public class JDBCUtilsByDruid {
     static {
         Properties properties = new Properties();
         try {
-            properties.load(new FileInputStream("src\\druid.properties"));
+            properties.load(JDBCUtilsByDruid.class.getClassLoader()
+                    .getResourceAsStream("src\\druid.properties"));
+//            properties.load(new FileInputStream("src\\druid.properties")); // 工作目录不含 src
             ds = DruidDataSourceFactory.createDataSource(properties);
         } catch (Exception e) {
             e.printStackTrace();
