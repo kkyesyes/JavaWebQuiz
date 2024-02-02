@@ -4,21 +4,30 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     
-    <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>src.com.kk.furns.web.RegisterServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/registerServlet</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>RegisterServlet</servlet-name>-->
+<!--        <servlet-class>src.com.kk.furns.web.RegisterServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>RegisterServlet</servlet-name>-->
+<!--        <url-pattern>/registerServlet</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet>-->
+<!--        <servlet-name>LoginServlet</servlet-name>-->
+<!--        <servlet-class>src.com.kk.furns.web.LoginServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>LoginServlet</servlet-name>-->
+<!--        <url-pattern>/loginServlet</url-pattern>-->
+<!--    </servlet-mapping>-->
 
     <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>src.com.kk.furns.web.LoginServlet</servlet-class>
+        <servlet-name>MemberServlet</servlet-name>
+        <servlet-class>src.com.kk.furns.web.MemberServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/loginServlet</url-pattern>
+        <servlet-name>MemberServlet</servlet-name>
+        <url-pattern>/memberServlet</url-pattern>
     </servlet-mapping>
 </web-app>
