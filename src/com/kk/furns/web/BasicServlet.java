@@ -13,6 +13,11 @@ import java.lang.reflect.Method;
  */
 public abstract class BasicServlet extends HttpServlet {
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         try {
@@ -20,7 +25,6 @@ public abstract class BasicServlet extends HttpServlet {
                     .getDeclaredMethod(action,
                             HttpServletRequest.class,
                             HttpServletResponse.class);
-            System.out.println("declaredMethod: " + declaredMethod);
             declaredMethod.invoke(this, req, resp);
         } catch (Exception e) {
             throw new RuntimeException(e);

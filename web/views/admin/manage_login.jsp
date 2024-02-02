@@ -72,7 +72,7 @@
                                     </span>
                                     <form action="adminServlet" method="post">
                                         <input type="hidden" name="action" value="login">
-                                        <input type="text" name="username" value="${requestScope.username}}" placeholder="Username"/>
+                                        <input type="text" name="username" value="${requestScope.username}" placeholder="Username"/>
                                         <input type="password" name="password" placeholder="Password"/>
                                         <div class="button-box">
                                             <div class="login-toggle-btn">

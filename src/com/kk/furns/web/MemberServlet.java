@@ -18,11 +18,6 @@ import java.io.IOException;
 public class MemberServlet extends BasicServlet {
     private MemberService memberService = new MemberServiceImpl();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
-    }
-
     /**
      * 用户登录服务
      */

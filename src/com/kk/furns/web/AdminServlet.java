@@ -16,11 +16,6 @@ import java.io.IOException;
 public class AdminServlet extends BasicServlet {
     private AdminService adminService = new AdminServiceImpl();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
-    }
-
     /**
      * 管理员登录服务
      */
