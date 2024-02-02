@@ -15,24 +15,12 @@ import java.io.IOException;
  * @author KK
  * @version 1.0
  */
-public class MemberServlet extends HttpServlet {
+public class MemberServlet extends BasicServlet {
     private MemberService memberService = new MemberServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        if ("login".equals(action)) {
-            login(req, resp);
-        } else if ("register".equals(action)) {
-            register(req, resp);
-        } else {
-            System.out.println("Action 参数不正确");
-        }
     }
 
     /**
