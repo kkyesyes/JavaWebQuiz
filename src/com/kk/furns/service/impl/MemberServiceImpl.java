@@ -4,7 +4,6 @@ import src.com.kk.furns.dao.MemberDAO;
 import src.com.kk.furns.dao.impl.MemberDAOImpl;
 import src.com.kk.furns.entity.Member;
 import src.com.kk.furns.service.MemberService;
-import sun.security.provider.MD5;
 
 /**
  * @author KK
@@ -36,8 +35,8 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public boolean userLogin(Member member) {
-        Member ResultMember = memberDAO.queryMemberByUsernameAndPassword(member);
-        if (ResultMember == null) {
+        Member resultMember = memberDAO.queryMemberByUsernameAndPassword(member);
+        if (resultMember == null) {
             return false;
         }
         return true;
