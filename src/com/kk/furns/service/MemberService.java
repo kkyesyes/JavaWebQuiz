@@ -11,7 +11,7 @@ public interface MemberService {
     boolean userRegister(Member member);
 
     // 用户登录
-    boolean userLogin(String username, String password);
+    boolean userLogin(Member member);
 
     // 判断用户名是否存在
     boolean isExistsUsername(String username);

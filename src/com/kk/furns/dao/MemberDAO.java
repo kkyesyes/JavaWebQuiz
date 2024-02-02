@@ -7,6 +7,12 @@ import src.com.kk.furns.entity.Member;
  * @version 1.0
  */
 public interface MemberDAO {
-    public Member queryMemberByUsername(String username);
-    public int saveMember(Member member);
+    // 根据用户名查询
+    Member queryMemberByUsername(String username);
+
+    // 根据用户名和密码查询
+    Member queryMemberByUsernameAndPassword(Member member);
+
+    // 保存用户
+    int saveMember(Member member);
 }

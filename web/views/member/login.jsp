@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>韩顺平教育~家居网购</title>
-    <base href="http://localhost:8080/JavaWebQuiz/">
+<%--    <base href="http://localhost:8080/JavaWebQuiz/">--%>
+    <base href="<%=request.getContextPath() + '/'%>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css"/>
     <link rel="stylesheet" href="assets/css/style.min.css"/>
-<!--    todo 后期改相对路径-->
 <!--    引入 jQuery-->
     <script type="text/javascript" src="script/jquery-3.6.0.min.js"></script>
     <script>
@@ -107,8 +107,12 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="/JavaWebQuiz/loginServlet" method="post">
-                                        <input type="text" name="username" placeholder="Username"/>
+                                    <span class="loginErrorMsg"
+                                          style="float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;">
+                                        ${requestScope.msg}
+                                    </span>
+                                    <form action="loginServlet" method="post">
+                                        <input type="text" name="username" value="${requestScope.username}" placeholder="Username"/>
                                         <input type="password" name="password" placeholder="Password"/>
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
@@ -127,7 +131,7 @@
                                 <div class="login-register-form">
                                     <span class="errorMsg"
                                           style="float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;"></span>
-                                    <form action="/JavaWebQuiz/registerServlet" method="post">
+                                    <form action="registerServlet" method="post">
                                         <input type="text" id="username" name="username" placeholder="Username"/>
                                         <input type="password" id="password" name="password" placeholder="输入密码"/>
                                         <input type="password" id="repwd" name="rePassword" placeholder="确认密码"/>

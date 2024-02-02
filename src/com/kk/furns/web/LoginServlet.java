@@ -1,5 +1,6 @@
 package src.com.kk.furns.web;
 
+import src.com.kk.furns.entity.Member;
 import src.com.kk.furns.service.MemberService;
 import src.com.kk.furns.service.impl.MemberServiceImpl;
 
@@ -25,10 +26,13 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        if (memberService.userLogin(username, password)) {
+        Member member = new Member(null, username, password, null);
+        if (memberService.userLogin(member)) {
             req.getRequestDispatcher("/views/member/login_ok.html").forward(req, resp);
         } else {
-            req.getRequestDispatcher("/views/member/login.html").forward(req, resp);
+            req.setAttribute("msg", "用户名或密码错误");
+            req.setAttribute("username", username);
+            req.getRequestDispatcher("/views/member/login.jsp").forward(req, resp);
         }
     }
 }

@@ -31,14 +31,13 @@ public class MemberServiceImpl implements MemberService {
 
     /**
      * 用户登录服务
-     * @param username 用户名
-     * @param password 用户密码
+     * @param member 传入的用户对象
      * @return 登录成功返回 true，否则返回 false
      */
     @Override
-    public boolean userLogin(String username, String password) {
-        Member member = memberDAO.queryMemberByUsernameAndPassword(username, password);
-        if (member == null) {
+    public boolean userLogin(Member member) {
+        Member ResultMember = memberDAO.queryMemberByUsernameAndPassword(member);
+        if (ResultMember == null) {
             return false;
         }
         return true;
