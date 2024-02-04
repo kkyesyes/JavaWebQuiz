@@ -14,4 +14,7 @@ public interface FurnDAO {
 
     // 添加家居信息
     int addFurn(Furn furn);
+
+    // 删除家居信息
+    int deleteFurnById(int id);
 }

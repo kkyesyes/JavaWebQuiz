@@ -23,7 +23,6 @@ public class FurnServlet extends BasicServlet {
 
     /**
      * 列出所有家居服务
-     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -35,6 +34,13 @@ public class FurnServlet extends BasicServlet {
         req.getRequestDispatcher("/views/manage/furn_manage.jsp").forward(req, resp);
     }
 
+    /**
+     * 添加一个家居服务
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     public void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 校验数据
         String name = req.getParameter("name");
@@ -67,6 +73,19 @@ public class FurnServlet extends BasicServlet {
         // 校验通过
         Furn furn = DataUtils.copyParamToBean(req.getParameterMap(), new Furn());
         furnService.add(furn);
+        resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=list");
+    }
+
+    /**
+     * 删除家居服务
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = DataUtils.parseInt(req.getParameter("id"), 0);
+        furnService.deleteFurnById(id);
         resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=list");
     }
 }

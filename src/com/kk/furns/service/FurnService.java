@@ -14,4 +14,7 @@ public interface FurnService {
 
     // 添加一个家居
     int add(Furn furn);
+
+    // 根据 id 删除一个家居
+    int deleteFurnById(int id);
 }

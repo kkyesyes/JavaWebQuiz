@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css"/>
     <link rel="stylesheet" href="assets/css/style.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(function () {
+            $(".icon-close").click(function () {
+                return window.confirm("确认删除吗？");
+            })
+        })
+    </script>
 </head>
 
 <body>
@@ -115,7 +123,7 @@
                                     </td>
                                     <td class="product-remove">
                                         <a href="#"><i class="icon-pencil"></i></a>
-                                        <a href="#"><i class="icon-close"></i></a>
+                                        <a href="manage/furnServlet?action=delete&id=${furn.id}"><i class="icon-close"></i></a>
                                     </td>
                                 </tr>
                             </c:forEach>
