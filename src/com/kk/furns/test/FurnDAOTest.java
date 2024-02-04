@@ -17,8 +17,8 @@ public class FurnDAOTest {
 
     @Test
     public void furnDAOTest() {
-        Furn furn1 = new Furn(null, "红木小板凳", "全友家居", new BigDecimal(500), 60, 413, null);
-        furnDAO.addFurn(furn1);
+        Furn furn1 = new Furn(34, "红木小板凳", "全友家居", new BigDecimal(500), 60, 413, null);
+        furnDAO.updateFurn(furn1);
         List<Furn> furns = furnDAO.queryFurns();
         for (Furn furn : furns) {
             System.out.println(furn);

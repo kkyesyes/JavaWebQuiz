@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>韩顺平教育-家居网购</title>
-    <base href="http://localhost:8080/JavaWebQuiz/">
+    <base href="<%=request.getContextPath() + '/'%>">
     <!-- 移动端适配 -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
@@ -70,7 +70,9 @@
         <h3 class="cart-page-title">家居后台管理-修改家居</h3>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <form action="#" method="post">
+                <form action="manage/furnServlet" method="post">
+                    <input type="hidden" name="action" value="update">
+                    <input type="hidden" name="id" value="${requestScope.selectedFurn.id}">
                     <div class="table-content table-responsive cart-table-content">
                         <table>
                             <thead>
@@ -87,17 +89,17 @@
                             <tbody>
                             <tr>
                                 <td class="product-thumbnail">
-                                    <a href="#"><img class="img-responsive ml-3" src="assets/images/product-image/default.jpg"
+                                    <a href="#"><img class="img-responsive ml-3" src="${requestScope.selectedFurn.picture}"
                                                      alt=""/></a>
                                 </td>
-                                <td class="product-name"><input name="name" style="width: 60%" type="text" value="Name"/></td>
-                                <td class="product-name"><input name="maker" style="width: 90%" type="text" value="蚂蚁家居"/></td>
-                                <td class="product-price-cart"><input name="price" style="width: 90%" type="text" value="60.00"/></td>
+                                <td class="product-name"><input name="name" style="width: 60%" type="text" value="${requestScope.selectedFurn.name}"/></td>
+                                <td class="product-name"><input name="maker" style="width: 90%" type="text" value="${requestScope.selectedFurn.maker}"/></td>
+                                <td class="product-price-cart"><input name="price" style="width: 90%" type="text" value="${requestScope.selectedFurn.price}"/></td>
                                 <td class="product-quantity">
-                                    <input name="sales" style="width: 90%" type="text" value="100"/>
+                                    <input name="sales" style="width: 90%" type="text" value="${requestScope.selectedFurn.sales}"/>
                                 </td>
                                 <td class="product-quantity">
-                                    <input name="stock" style="width: 90%" type="text" value="80"/>
+                                    <input name="inventory" style="width: 90%" type="text" value="${requestScope.selectedFurn.inventory}"/>
                                 </td>
                                 <td>
 <!--                                    <a href="#"><i class="icon-pencil"></i></a>-->

@@ -22,6 +22,18 @@ public class FurnDAOImpl extends BasicDAO implements FurnDAO {
     }
 
     /**
+     * 根据传入的 id 查询家居
+     * @param id 传入的 id
+     * @return 返回家居信息
+     */
+    @Override
+    public Furn queryFurnById(int id) {
+        String sql = "select `id`, `name`, `maker`, `price`, `sales`, `inventory`, `picture`" +
+                "from `furn` where id=?";
+        return (Furn) querySingle(sql, Furn.class, id);
+    }
+
+    /**
      * 添加家居
      * @param furn 传入的家居对象
      * @return 返回受影响的行数
@@ -43,5 +55,19 @@ public class FurnDAOImpl extends BasicDAO implements FurnDAO {
     public int deleteFurnById(int id) {
         String sql = "delete from `furn` where id=?";
         return update(sql, id);
+    }
+
+    @Override
+    public int updateFurn(Furn furn) {
+        String sql = "update `furn` " +
+                "set `name`=?, " +
+                "`maker`=?, " +
+                "`price`=?, " +
+                "`sales`=?, " +
+                "`inventory`=?, " +
+                "`picture`=? " +
+                "where id=?";
+        return update(sql, furn.getName(), furn.getMaker(), furn.getPrice(), furn.getSales(),
+                furn.getInventory(), furn.getPicture(), furn.getId());
     }
 }

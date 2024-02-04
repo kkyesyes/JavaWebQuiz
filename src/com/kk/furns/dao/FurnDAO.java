@@ -12,9 +12,15 @@ public interface FurnDAO {
     // 查询所有家居信息
     List<Furn> queryFurns();
 
+    // 通过 id 查询家居信息
+    Furn queryFurnById(int id);
+
     // 添加家居信息
     int addFurn(Furn furn);
 
     // 删除家居信息
     int deleteFurnById(int id);
+
+    // 修改家居信息
+    int updateFurn(Furn furn);
 }

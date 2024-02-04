@@ -9,6 +9,7 @@ import src.com.kk.furns.utils.DataUtils;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -86,6 +87,20 @@ public class FurnServlet extends BasicServlet {
     public void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = DataUtils.parseInt(req.getParameter("id"), 0);
         furnService.deleteFurnById(id);
+        resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=list");
+    }
+
+    public void show(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = DataUtils.parseInt(req.getParameter("id"), 0);
+        Furn furn = furnService.queryFurnById(id);
+        req.setAttribute("selectedFurn", furn);
+        req.getRequestDispatcher("/views/manage/furn_update.jsp").forward(req, resp);
+    }
+
+    public void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Furn furn = DataUtils.copyParamToBean(req.getParameterMap(), new Furn());
+        int rows = furnService.updateFurn(furn);
+        System.out.println(rows);
         resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=list");
     }
 }

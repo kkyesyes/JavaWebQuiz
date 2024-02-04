@@ -17,4 +17,10 @@ public interface FurnService {
 
     // 根据 id 删除一个家居
     int deleteFurnById(int id);
+
+    // 根据 id 查询一个家居
+    Furn queryFurnById(int id);
+
+    // 修改家居信息
+    int updateFurn(Furn furn);
 }

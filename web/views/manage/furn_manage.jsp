@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>韩顺平教育-家居网购</title>
-    <base href="http://localhost:8080/JavaWebQuiz/">
+    <base href="<%=request.getContextPath() + '/'%>">
     <!-- 移动端适配 -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
@@ -122,7 +122,7 @@
                                             ${furn.inventory}
                                     </td>
                                     <td class="product-remove">
-                                        <a href="#"><i class="icon-pencil"></i></a>
+                                        <a href="manage/furnServlet?action=show&id=${furn.id}"><i class="icon-pencil"></i></a>
                                         <a href="manage/furnServlet?action=delete&id=${furn.id}"><i class="icon-close"></i></a>
                                     </td>
                                 </tr>
