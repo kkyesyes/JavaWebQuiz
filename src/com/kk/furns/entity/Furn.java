@@ -13,7 +13,7 @@ public class Furn {
     private BigDecimal price;
     private Integer sales;
     private Integer inventory;
-    private String picture;
+    private String picture = "https://img95.699pic.com/photo/60005/6018.jpg_wh860.jpg";
 
 
     public Furn() {
@@ -26,7 +26,9 @@ public class Furn {
         this.price = price;
         this.sales = sales;
         this.inventory = inventory;
-        this.picture = picture;
+        if (null != picture && "".equals(picture)) {
+            this.picture = picture;
+        }
     }
 
     public Integer getId() {

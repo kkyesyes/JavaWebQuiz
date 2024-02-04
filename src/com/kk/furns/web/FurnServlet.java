@@ -1,13 +1,16 @@
 package src.com.kk.furns.web;
 
+import org.apache.commons.beanutils.BeanUtils;
 import src.com.kk.furns.entity.Furn;
 import src.com.kk.furns.service.FurnService;
 import src.com.kk.furns.service.impl.FurnServiceImpl;
+import src.com.kk.furns.utils.DataUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -33,13 +36,13 @@ public class FurnServlet extends BasicServlet {
     }
 
     public void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 添加
+        // 校验数据
         String name = req.getParameter("name");
         String maker = req.getParameter("maker");
         try {
-            int price = Integer.parseInt(req.getParameter("price"));
-            int sales = Integer.parseInt(req.getParameter("sales"));
-            int inventory = Integer.parseInt(req.getParameter("inventory"));
+            Double.parseDouble(req.getParameter("price"));
+            Integer.parseInt(req.getParameter("sales"));
+            Integer.parseInt(req.getParameter("inventory"));
         } catch (Exception e) {
             req.setAttribute("msg", "数据格式异常！请重新检查");
             req.setAttribute("name", name);
@@ -60,11 +63,10 @@ public class FurnServlet extends BasicServlet {
             req.getRequestDispatcher("/views/manage/furn_add.jsp").forward(req, resp);
             return;
         }
-        Furn furn = new Furn(null, name, maker, price, sales, inventory, "https://img95.699pic.com/photo/60005/6018.jpg_wh860.jpg");
-        System.out.println(furn);
-        furnService.add(furn);
 
-        // 转发列表
+        // 校验通过
+        Furn furn = DataUtils.copyParamToBean(req.getParameterMap(), new Furn());
+        furnService.add(furn);
         resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=list");
     }
 }
