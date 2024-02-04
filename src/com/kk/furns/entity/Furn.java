@@ -84,4 +84,17 @@ public class Furn {
     public void setPicture(String picture) {
         this.picture = picture;
     }
+
+    @Override
+    public String toString() {
+        return "Furn{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", maker='" + maker + '\'' +
+                ", price=" + price +
+                ", sales=" + sales +
+                ", inventory=" + inventory +
+                ", picture='" + picture + '\'' +
+                '}';
+    }
 }

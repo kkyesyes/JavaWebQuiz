@@ -1,15 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>韩顺平教育-家居网购</title>
-    <base href="http://localhost:8080/JavaWebQuiz/">
+    <base href="<%=request.getContextPath() + '/'%>">
     <!-- 移动端适配 -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css"/>
     <link rel="stylesheet" href="assets/css/style.min.css">
+    <%--    todo 校验不起作用 --%>
+    <script type="text/javascript">
+        $(function () {
+            $("#add-furn").click = function () {
+                let money_pattern = /^[0-9]+(.[0-9]{1,2})?$/;
+                let number_pattern = /^[0-9]+$/;
+                let furn_price = $("#furn-price").val();
+                if (!money_pattern.test(furn_price)) {
+                    alert(furn_price);
+                    $("span[class='errorMsg']").text("家居价格数据不规范！请重新确认输入");
+                    return false;
+                }
+                let furn_sales = $("#furn-sales").val();
+                if (!number_pattern.test(furn_sales)) {
+                    $("span[class='errorMsg']").text("家居销量数据不规范！请重新确认输入");
+                    return false;
+                }
+                let furn_inventory = $("#furn_inventory").val();
+                if (!number_pattern.test(furn_inventory)) {
+                    $("span[class='errorMsg']").text("家居库存数据不规范！请重新确认输入");
+                    return false;
+                }
+                return true;
+            }
+        })
+    </script>
 </head>
 
 <body>
@@ -69,8 +95,13 @@
     <div class="container">
         <h3 class="cart-page-title">家居后台管理-添加家居</h3>
         <div class="row">
+            <span class="errorMsg"
+                  style="color: red; float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;">
+                ${requestScope.msg}
+            </span>
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <form action="#" method="post">
+                <form action="manage/furnServlet" method="post">
+                    <input type="hidden" name="action" value="add">
                     <div class="table-content table-responsive cart-table-content">
                         <table>
                             <thead>
@@ -87,22 +118,29 @@
                             <tbody>
                             <tr>
                                 <td class="product-thumbnail">
-                                    <a href="#"><img class="img-responsive ml-3" src="assets/images/product-image/default.jpg"
+                                    <a href="#"><img class="img-responsive ml-3"
+                                                     src="assets/images/product-image/default.jpg"
                                                      alt=""/></a>
                                 </td>
-                                <td class="product-name"><input name="name" style="width: 60%" type="text" value="Name"/></td>
-                                <td class="product-name"><input name="maker" style="width: 90%" type="text" value="蚂蚁家居"/></td>
-                                <td class="product-price-cart"><input name="price" style="width: 90%" type="text" value="60.00"/></td>
+                                <td class="product-name"><input id="furn-name" name="name" style="width: 60%"
+                                                                type="text" value="${requestScope.name}"/></td>
+                                <td class="product-name"><input id="furn-maker" name="maker" style="width: 90%"
+                                                                type="text" value="${requestScope.maker}"/></td>
+                                <td class="product-price-cart"><input id="furn-price" name="price" style="width: 90%"
+                                                                      type="text" value="${requestScope.price}"/></td>
                                 <td class="product-quantity">
-                                    <input name="sales" style="width: 90%" type="text" value="100"/>
+                                    <input id="furn-sales" name="sales" style="width: 90%" type="text" value="${requestScope.sales}"/>
                                 </td>
                                 <td class="product-quantity">
-                                    <input name="stock" style="width: 90%" type="text" value="80"/>
+                                    <input id="furn-inventory" name="inventory" style="width: 90%" type="text"
+                                           value="${requestScope.inventory}"/>
                                 </td>
                                 <td>
-<!--                                    <a href="#"><i class="icon-pencil"></i></a>-->
-<!--                                    <a href="#"><i class="icon-close"></i></a>-->
-                                    <input type="submit" style="width: 90%;background-color: silver;border: silver;border-radius: 20%;" value="添加家居"/>
+                                    <!--                                    <a href="#"><i class="icon-pencil"></i></a>-->
+                                    <!--                                    <a href="#"><i class="icon-close"></i></a>-->
+                                    <input id="add-furn" type="submit"
+                                           style="width: 90%;background-color: silver;border: silver;border-radius: 20%;"
+                                           value="添加家居"/>
                                 </td>
                             </tr>
                             </tbody>
@@ -133,7 +171,8 @@
                                     <ul class="align-items-center">
                                         <li class="li"><a class="single-link" href="about.html">关于我们</a></li>
                                         <li class="li"><a class="single-link" href="#">交货信息</a></li>
-                                        <li class="li"><a class="single-link" href="privacy-policy.html">隐私与政策</a></li>
+                                        <li class="li"><a class="single-link" href="privacy-policy.html">隐私与政策</a>
+                                        </li>
                                         <li class="li"><a class="single-link" href="#">条款和条件</a></li>
                                         <li class="li"><a class="single-link" href="#">制造</a></li>
                                     </ul>

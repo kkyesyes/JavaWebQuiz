@@ -19,6 +19,8 @@ public abstract class BasicServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
         String action = req.getParameter("action");
         try {
             Method declaredMethod = this.getClass()

@@ -108,7 +108,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <span class="loginErrorMsg"
-                                          style="float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;">
+                                          style="color: red; float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;">
                                         ${requestScope.msg}
                                     </span>
                                     <form action="memberServlet" method="post">
@@ -131,7 +131,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <span class="errorMsg"
-                                          style="float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;"></span>
+                                          style="color: red; float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;"></span>
                                     <form action="memberServlet" method="post">
                                         <input type="hidden" name="action" value="register">
                                         <input type="text" id="username" name="username" placeholder="Username"/>

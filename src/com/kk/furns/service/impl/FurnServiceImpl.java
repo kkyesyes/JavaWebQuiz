@@ -18,4 +18,9 @@ public class FurnServiceImpl implements FurnService {
     public List<Furn> list() {
         return furnDAO.queryFurns();
     }
+
+    @Override
+    public int add(Furn furn) {
+        return furnDAO.addFurn(furn);
+    }
 }

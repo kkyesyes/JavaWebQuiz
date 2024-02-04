@@ -11,4 +11,7 @@ import java.util.List;
 public interface FurnDAO {
     // 查询所有家居信息
     List<Furn> queryFurns();
+
+    // 添加家居信息
+    int addFurn(Furn furn);
 }

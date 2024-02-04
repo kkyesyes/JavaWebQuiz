@@ -67,7 +67,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <span class="errorMsg"
-                                          style="float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;">
+                                          style="color: red; float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;">
                                         ${requestScope.msg}
                                     </span>
                                     <form action="adminServlet" method="post">

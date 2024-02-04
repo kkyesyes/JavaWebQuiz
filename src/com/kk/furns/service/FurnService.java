@@ -11,4 +11,7 @@ import java.util.List;
 public interface FurnService {
     // 列出所有家居
     List<Furn> list();
+
+    // 添加一个家居
+    int add(Furn furn);
 }
