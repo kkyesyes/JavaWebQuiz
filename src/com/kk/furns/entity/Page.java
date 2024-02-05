@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class Page<T> {
     public static final Integer PAGE_SIZE = 5;
+    public static final Integer CUSTOMER_PAGE_SIZE = 4;
     // 页编号
     private Integer pageNo;
     // 页大小

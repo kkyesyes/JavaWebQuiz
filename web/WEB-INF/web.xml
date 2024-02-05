@@ -48,4 +48,13 @@
         <servlet-name>FurnServlet</servlet-name>
         <url-pattern>/manage/furnServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CustomerFurnServlet</servlet-name>
+        <servlet-class>src.com.kk.furns.web.CustomerFurnServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerFurnServlet</servlet-name>
+        <url-pattern>/customerFurnServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
