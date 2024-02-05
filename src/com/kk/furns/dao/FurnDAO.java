@@ -23,4 +23,10 @@ public interface FurnDAO {
 
     // 修改家居信息
     int updateFurn(Furn furn);
+
+    // 查询表行数
+    int getTotalRow();
+
+    // 获取当前页显示数据
+    List<Furn> getPageFurns(int begin, int pageSize);
 }

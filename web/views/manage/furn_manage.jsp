@@ -55,7 +55,7 @@
                             <a href="#">后台管理</a>
                         </div>
                         <div class="header-bottom-set dropdown">
-                            <a href="views/manage/furn_add.jsp">添加家居</a>
+                            <a href="views/manage/furn_add.jsp?pageNo=${requestScope.page.pageNo}">添加家居</a>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="furn" items="${requestScope.furns}">
+                            <c:forEach var="furn" items="${requestScope.page.items}">
                                 <tr>
                                     <td class="product-thumbnail">
                                             <%--                                    图片路径${furn.picture}--%>
@@ -122,8 +122,10 @@
                                             ${furn.inventory}
                                     </td>
                                     <td class="product-remove">
-                                        <a href="manage/furnServlet?action=show&id=${furn.id}"><i class="icon-pencil"></i></a>
-                                        <a href="manage/furnServlet?action=delete&id=${furn.id}"><i class="icon-close"></i></a>
+                                        <a href="manage/furnServlet?action=show&id=${furn.id}&pageNo=${requestScope.page.pageNo}"><i
+                                                class="icon-pencil"></i></a>
+                                        <a href="manage/furnServlet?action=delete&id=${furn.id}&pageNo=${requestScope.page.pageNo}"><i
+                                                class="icon-close"></i></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -133,6 +135,38 @@
                 </form>
             </div>
         </div>
+        <!--  Pagination Area Start -->
+        <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">
+            <ul>
+                <li><a href="manage/furnServlet?action=page&pageNo=1">首页</a></li>
+                <c:if test="${requestScope.page.pageNo > 1}">
+                    <li><a href="manage/furnServlet?action=page&pageNo=${requestScope.page.pageNo - 1}">上页</a></li>
+                </c:if>
+                <c:set var="begin" value="1"/>
+                <c:set var="end" value="${requestScope.page.totalPages}"/>
+                <c:if test="${requestScope.page.totalPages > 5}">
+                    <c:set var="begin" value="${(requestScope.page.pageNo - 2) < 1 ? 1 : (requestScope.page.pageNo - 2)}"/>
+                    <c:set var="end" value="${(requestScope.page.pageNo + 2) > requestScope.page.totalPages ? requestScope.page.totalPages : (requestScope.page.pageNo + 2)}"/>
+                </c:if>
+                <c:forEach begin="${begin}" end="${end}" var="i">
+                    <c:if test="${i >= 1 && i <= requestScope.page.totalPages}">
+                        <c:if test="${i != requestScope.page.pageNo}">
+                            <li><a href="manage/furnServlet?action=page&pageNo=${i}">${i}</a></li>
+                        </c:if>
+                        <c:if test="${i == requestScope.page.pageNo}">
+                            <li><a class="active" href="manage/furnServlet?action=page&pageNo=${i}">${i}</a></li>
+                        </c:if>
+                    </c:if>
+                </c:forEach>
+                <c:if test="${requestScope.page.pageNo < requestScope.page.totalPages}">
+                    <li><a href="manage/furnServlet?action=page&pageNo=${requestScope.page.pageNo + 1}">下页</a></li>
+                </c:if>
+                <li><a href="manage/furnServlet?action=page&pageNo=${requestScope.page.totalPages}">末页</a></li>
+                <li><a>共 ${requestScope.page.totalPages} 页</a></li>
+                <li><a>共 ${requestScope.page.totalRows} 条</a></li>
+            </ul>
+        </div>
+        <!--  Pagination Area End -->
     </div>
 </div>
 <!-- Cart Area End -->

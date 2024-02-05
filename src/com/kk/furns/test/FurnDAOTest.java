@@ -24,4 +24,18 @@ public class FurnDAOTest {
             System.out.println(furn);
         }
     }
+
+    @Test
+    public void getTotalRowTest() {
+        System.out.println(furnDAO.getTotalRow());
+    }
+
+    @Test
+    public void getPageFurnsTest() {
+        List<Furn> pageFurns = furnDAO.getPageFurns(2, 2);
+        for (Furn furn : pageFurns) {
+            System.out.println(furn);
+        }
+    }
+
 }

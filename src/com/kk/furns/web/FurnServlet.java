@@ -2,6 +2,7 @@ package src.com.kk.furns.web;
 
 import org.apache.commons.beanutils.BeanUtils;
 import src.com.kk.furns.entity.Furn;
+import src.com.kk.furns.entity.Page;
 import src.com.kk.furns.service.FurnService;
 import src.com.kk.furns.service.impl.FurnServiceImpl;
 import src.com.kk.furns.utils.DataUtils;
@@ -74,7 +75,7 @@ public class FurnServlet extends BasicServlet {
         // 校验通过
         Furn furn = DataUtils.copyParamToBean(req.getParameterMap(), new Furn());
         furnService.add(furn);
-        resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=list");
+        resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=page&pageNo=" + req.getParameter("pageNo"));
     }
 
     /**
@@ -87,20 +88,29 @@ public class FurnServlet extends BasicServlet {
     public void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = DataUtils.parseInt(req.getParameter("id"), 0);
         furnService.deleteFurnById(id);
-        resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=list");
+        req.setAttribute("pageNo", req.getParameter("pageNo"));
+        resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=page&pageNo=" + req.getParameter("pageNo"));
     }
 
     public void show(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = DataUtils.parseInt(req.getParameter("id"), 0);
         Furn furn = furnService.queryFurnById(id);
         req.setAttribute("selectedFurn", furn);
+        req.setAttribute("pageNo", req.getParameter("pageNo"));
         req.getRequestDispatcher("/views/manage/furn_update.jsp").forward(req, resp);
     }
 
     public void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Furn furn = DataUtils.copyParamToBean(req.getParameterMap(), new Furn());
-        int rows = furnService.updateFurn(furn);
-        System.out.println(rows);
-        resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=list");
+        furnService.updateFurn(furn);
+        resp.sendRedirect(req.getContextPath() + "/manage/furnServlet?action=page&pageNo=" + req.getParameter("pageNo"));
+    }
+
+    public void page(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int pageNo = DataUtils.parseInt(req.getParameter("pageNo"), 1);
+        int pageSize = DataUtils.parseInt(req.getParameter("pageSize"), Page.PAGE_SIZE);
+        Page<Furn> page = furnService.page(pageNo, pageSize);
+        req.setAttribute("page", page);
+        req.getRequestDispatcher("/views/manage/furn_manage.jsp").forward(req, resp);
     }
 }

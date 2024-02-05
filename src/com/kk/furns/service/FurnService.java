@@ -1,6 +1,7 @@
 package src.com.kk.furns.service;
 
 import src.com.kk.furns.entity.Furn;
+import src.com.kk.furns.entity.Page;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface FurnService {
 
     // 修改家居信息
     int updateFurn(Furn furn);
+
+    // 分页显示
+    Page<Furn> page(int pageNo, int pageSize);
 }

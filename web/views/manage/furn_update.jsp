@@ -73,6 +73,7 @@
                 <form action="manage/furnServlet" method="post">
                     <input type="hidden" name="action" value="update">
                     <input type="hidden" name="id" value="${requestScope.selectedFurn.id}">
+                    <input type="hidden" name="pageNo" value="${requestScope.pageNo}">
                     <div class="table-content table-responsive cart-table-content">
                         <table>
                             <thead>

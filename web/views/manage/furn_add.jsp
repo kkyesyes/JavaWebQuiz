@@ -60,7 +60,7 @@
 
                         <!-- Single Wedge Start -->
                         <div class="header-bottom-set dropdown">
-                            <a href="manage/furnServlet?action=list">家居管理</a>
+                            <a href="manage/furnServlet?action=page">家居管理</a>
                         </div>
                         <div class="header-bottom-set dropdown">
                             <a href="#">订单管理</a>
@@ -102,6 +102,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <form action="manage/furnServlet" method="post">
                     <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="pageNo" value="${param.pageNo}">
                     <div class="table-content table-responsive cart-table-content">
                         <table>
                             <thead>

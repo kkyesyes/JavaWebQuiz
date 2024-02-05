@@ -26,7 +26,7 @@ public class DataUtils {
         try {
             return Integer.parseInt(val);
         } catch (NumberFormatException e) {
-            System.out.println(val + " 格式不正确...");
+            System.out.println("[LOG] DataUtils.parseInt: " + val + " 格式不正确...");
         }
         return defaultVal;
     }
