@@ -35,6 +35,16 @@ public class MemberServlet extends BasicServlet {
     }
 
     /**
+     * 用户注销服务
+     */
+    public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().invalidate();
+        resp.sendRedirect(req.getContextPath());
+    }
+
+
+
+    /**
      * 用户注册服务
      */
     public void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
