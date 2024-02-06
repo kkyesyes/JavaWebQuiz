@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
 
+import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
+
 /**
  * @author KK
  * @version 1.0
@@ -51,14 +53,34 @@ public class MemberServlet extends BasicServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
+        String checkCode = req.getParameter("checkCode");
+        String token = (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
+        req.setAttribute("active", "register");
+        req.setAttribute("username", username);
+        req.setAttribute("email", email);
+        if (null == checkCode || "".equals(checkCode)) {
+            // 注册失败
+            req.setAttribute("msg", "验证码不可为空！");
+            req.getRequestDispatcher("/views/member/login.jsp")
+                    .forward(req, resp);
+            return;
+        }
+        if (!token.equalsIgnoreCase(checkCode)) {
+            // 注册失败
+            req.setAttribute("msg", "非法验证码提交！");
+            req.getRequestDispatcher("/views/member/login.jsp")
+                    .forward(req, resp);
+            return;
+        }
         Member member = new Member(null, username, password, email);
         if (memberService.userRegister(member)) {
             // 注册成功
-            req.getRequestDispatcher("/views/member/register_ok.html")
+            req.getRequestDispatcher("/views/member/register_ok.jsp")
                     .forward(req, resp);
         } else {
             // 注册失败
-            req.getRequestDispatcher("/views/member/register_fail.html")
+            req.getRequestDispatcher("/views/member/register_fail.jsp")
                     .forward(req, resp);
         }
     }

@@ -57,4 +57,13 @@
         <servlet-name>CustomerFurnServlet</servlet-name>
         <url-pattern>/customerFurnServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>KaptchaServlet</servlet-name>
+        <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>KaptchaServlet</servlet-name>
+        <url-pattern>/kaptchaServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

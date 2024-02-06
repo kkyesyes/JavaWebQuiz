@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>韩顺平教育~家居网购</title>
-<%--    <base href="http://localhost:8080/JavaWebQuiz/">--%>
     <base href="<%=request.getContextPath() + '/'%>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
@@ -15,6 +14,16 @@
     <script>
         // 页面加载完毕后执行
         $(function () {
+            //
+            if ("${requestScope.active}" == "register") {
+                $("#register_tab")[0].click();
+            }
+
+            // 验证码点击跳转事件绑定
+            $("#checkcodeImg").click(function () {
+                this.src = "kaptchaServlet?d=" + new Date();
+            })
+
             // 绑定事件
             $("#sub-btn").click(function () {
                 // 编写用于验证的正则
@@ -43,6 +52,13 @@
                 let emailVal = $("#email").val();
                 if (!emailPattern.test(emailVal)) {
                     $("span.errorMsg").text("邮箱格式不正确！");
+                    return false;
+                }
+                // 校验验证码
+                let checkCodeVal = $("#checkCode").val();
+                checkCodeVal = $.trim(checkCodeVal);
+                if (checkCodeVal === null || checkCodeVal === "") {
+                    $("span.errorMsg").text("验证码不能为空！");
                     return false;
                 }
             })
@@ -99,7 +115,7 @@
                         <a class="active" data-bs-toggle="tab" href="#lg1">
                             <h4>会员登录</h4>
                         </a>
-                        <a data-bs-toggle="tab" href="#lg2">
+                        <a id="register_tab" data-bs-toggle="tab" href="#lg2">
                             <h4>会员注册</h4>
                         </a>
                     </div>
@@ -131,15 +147,17 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <span class="errorMsg"
-                                          style="color: red; float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;"></span>
+                                          style="color: red; float: right; font-weight: bold; font-size: 20pt; margin-left: 10px;">
+                                        ${requestScope.msg}
+                                    </span>
                                     <form action="memberServlet" method="post">
                                         <input type="hidden" name="action" value="register">
-                                        <input type="text" id="username" name="username" placeholder="Username"/>
-                                        <input type="password" id="password" name="password" placeholder="输入密码"/>
+                                        <input type="text" id="username" name="username" value="${requestScope.username}" placeholder="用户名"/>
+                                        <input type="password" id="password" name="password" placeholder="密码"/>
                                         <input type="password" id="repwd" name="rePassword" placeholder="确认密码"/>
-                                        <input name="email" id="email" placeholder="电子邮件" type="email"/>
-                                        <input type="text" id="code" name="checkCode" style="width: 50%" id="code"
-                                               placeholder="验证码"/>　　<img alt="" src="assets/images/code/code.bmp">
+                                        <input type="email" id="email" name="email" value="${requestScope.email}" placeholder="电子邮件" />
+                                        <input type="text" id="checkCode" name="checkCode" style="width: 50%"
+                                               placeholder="验证码"/>　　<img id="checkcodeImg" style="width: 120px; height: 50px" alt="" src="kaptchaServlet">
                                         <div class="button-box">
                                             <button type="submit" id="sub-btn"><span>会员注册</span></button>
                                         </div>
