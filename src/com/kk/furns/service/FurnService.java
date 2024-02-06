@@ -27,4 +27,7 @@ public interface FurnService {
 
     // 分页显示
     Page<Furn> page(int pageNo, int pageSize);
+
+    // 根据家居名分页显示
+    Page<Furn> pageByName(int pageNo, int pageSize, String name);
 }

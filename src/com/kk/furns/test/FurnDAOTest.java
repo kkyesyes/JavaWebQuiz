@@ -38,4 +38,16 @@ public class FurnDAOTest {
         }
     }
 
+    @Test
+    public void getPageTotalCountByNameTest() {
+        System.out.println(furnDAO.getPageTotalCountByName("5"));
+    }
+
+    @Test
+    public void getPageItemsByNameTest() {
+        List<Furn> pageItemsByName = furnDAO.getPageItemsByName(2, 2, "5435");
+        for (Furn furn : pageItemsByName) {
+            System.out.println(furn);
+        }
+    }
 }

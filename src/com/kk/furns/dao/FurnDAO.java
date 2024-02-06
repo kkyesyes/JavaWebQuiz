@@ -29,4 +29,10 @@ public interface FurnDAO {
 
     // 获取当前页显示数据
     List<Furn> getPageFurns(int begin, int pageSize);
+
+    // 根据家居名得到页家居数
+    int getPageTotalCountByName(String name);
+
+    // 根据家居名得到页家居集合
+    List<Furn> getPageItemsByName(int begin, int pageSize, String name);
 }

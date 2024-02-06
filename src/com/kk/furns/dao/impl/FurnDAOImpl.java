@@ -57,6 +57,11 @@ public class FurnDAOImpl extends BasicDAO implements FurnDAO {
         return update(sql, id);
     }
 
+    /**
+     * 更新对于传入的 Furn 对象的数据
+     * @param furn 传入的对象
+     * @return 返回受影响的行数
+     */
     @Override
     public int updateFurn(Furn furn) {
         String sql = "update `furn` " +
@@ -71,16 +76,48 @@ public class FurnDAOImpl extends BasicDAO implements FurnDAO {
                 furn.getInventory(), furn.getPicture(), furn.getId());
     }
 
+    /**
+     * 查询家居表的总行数
+     * @return 总行数
+     */
     @Override
     public int getTotalRow() {
         String sql = "select count(*) from `furn`";
         return ((Number) queryScalar(sql)).intValue();
     }
 
+    /**
+     * 查询分页家居信息
+     * @param begin 所查询的起始行
+     * @param pageSize 分页大小
+     * @return 返回所查到的家居信息的集合
+     */
     @Override
     public List<Furn> getPageFurns(int begin, int pageSize) {
         String sql = "select `id`, `name`, `maker`, `price`, `sales`, `inventory`, `picture`" +
                 "from `furn` limit ?, ?";
         return queryMulti(sql, Furn.class, begin, pageSize);
+    }
+
+    /**
+     * 根据家居名查询分页家居信息总条数
+     * @param name 传入的家居名
+     * @return 返回总条数
+     */
+    @Override
+    public int getPageTotalCountByName(String name) {
+        String sql = "select count(*) from `furn` where `name` like ?";
+        return ((Number) queryScalar(sql, "%" + name + "%")).intValue();
+    }
+
+    /**
+     * 根据家居名查询所有家居名相同的家居信息
+     * @param name 传入的家居名
+     * @return 返回家居名相同的家居信息
+     */
+    @Override
+    public List<Furn> getPageItemsByName(int begin, int pageSize, String name) {
+        String sql = "select * from `furn` where `name` like ? limit ?, ?";
+        return queryMulti(sql, Furn.class, "%" + name + "%", begin, pageSize);
     }
 }
