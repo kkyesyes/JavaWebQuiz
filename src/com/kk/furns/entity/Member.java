@@ -1,10 +1,12 @@
 package src.com.kk.furns.entity;
 
+import java.io.Serializable;
+
 /**
  * @author KK
  * @version 1.0
  */
-public class Member {
+public class Member implements Serializable {
     private Integer id;
     private String username;
     private String password;

@@ -38,18 +38,32 @@
                             <div class="dropdown_search">
                                 <form class="action-form" action="customerFurnServlet">
                                     <input type="hidden" name="action" value="pageByName">
-                                    <input class="form-control" name="name" placeholder="Enter your search key" type="text" value="${requestScope.name}">
+                                    <input class="form-control" name="name" placeholder="Enter your search key"
+                                           type="text" value="${requestScope.name}">
                                     <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
                                 </form>
                             </div>
                         </div>
                         <!-- Single Wedge Start -->
-                        <div class="header-bottom-set dropdown">
-                            <a href="views/member/login.jsp">登录|注册</a>
-                        </div>
-                        <div class="header-bottom-set dropdown">
-                            <a href="views/admin/manage_login.jsp" 后台>管理</a>
-                        </div>
+                        <c:if test="${not empty sessionScope.member}">
+                            <div class="header-bottom-set dropdown">
+                                <a>嗨！${sessionScope.member.username}</a>
+                            </div>
+                            <div class="header-bottom-set dropdown">
+                                <a href="#">订单管理</a>
+                            </div>
+                            <div class="header-bottom-set dropdown">
+                                <a href="#">安全退出</a>
+                            </div>
+                        </c:if>
+                        <c:if test="${empty sessionScope.member}">
+                            <div class="header-bottom-set dropdown">
+                                <a href="views/member/login.jsp">登录|注册</a>
+                            </div>
+                            <div class="header-bottom-set dropdown">
+                                <a href="views/admin/manage_login.jsp">后台管理</a>
+                            </div>
+                        </c:if>
                         <!-- Single Wedge End -->
                         <a href="#offcanvas-cart"
                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
@@ -168,7 +182,8 @@
         <c:set var="end" value="${requestScope.page.totalPages}"/>
         <c:if test="${requestScope.page.totalPages > 5}">
             <c:set var="begin" value="${(requestScope.page.pageNo - 2) < 1 ? 1 : (requestScope.page.pageNo - 2)}"/>
-            <c:set var="end" value="${(requestScope.page.pageNo + 2) > requestScope.page.totalPages ? requestScope.page.totalPages : (requestScope.page.pageNo + 2)}"/>
+            <c:set var="end"
+                   value="${(requestScope.page.pageNo + 2) > requestScope.page.totalPages ? requestScope.page.totalPages : (requestScope.page.pageNo + 2)}"/>
         </c:if>
         <c:forEach begin="${begin}" end="${end}" var="i">
             <c:if test="${i >= 1 && i <= requestScope.page.totalPages}">

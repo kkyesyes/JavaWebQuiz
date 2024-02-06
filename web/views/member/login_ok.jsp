@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>韩顺平教育-家居网购</title>
-    <base href="http://localhost:8080/JavaWebQuiz/">
+    <base href="<%=request.getContextPath() + "/"%>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css"/>
@@ -57,7 +57,7 @@
             <div class="col-lg-7 col-md-12 ml-auto mr-auto">
                 <div class="login-register-wrapper">
                     <div class="login-register-tab-list nav">
-                        <a class="active"  href="index.html">
+                        <a class="active"  href="index.jsp">
                             <h4>登录成功, 返回首页</h4>
                         </a>
                     </div>

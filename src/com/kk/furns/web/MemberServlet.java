@@ -6,9 +6,7 @@ import src.com.kk.furns.service.MemberService;
 import src.com.kk.furns.service.impl.MemberServiceImpl;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 /**
@@ -26,7 +24,9 @@ public class MemberServlet extends BasicServlet {
         String password = req.getParameter("password");
         Member member = new Member(null, username, password, null);
         if (memberService.userLogin(member)) {
-            req.getRequestDispatcher("/views/member/login_ok.html").forward(req, resp);
+            HttpSession session = req.getSession();
+            session.setAttribute("member", member);
+            req.getRequestDispatcher("/views/member/login_ok.jsp").forward(req, resp);
         } else {
             req.setAttribute("msg", "用户名或密码错误");
             req.setAttribute("username", username);
