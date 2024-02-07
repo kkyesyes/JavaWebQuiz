@@ -66,4 +66,13 @@
         <servlet-name>KaptchaServlet</servlet-name>
         <url-pattern>/kaptchaServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>src.com.kk.furns.web.CartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cartServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

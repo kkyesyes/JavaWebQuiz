@@ -11,6 +11,16 @@
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css"/>
     <link rel="stylesheet" href="assets/css/style.min.css">
+    <script type="text/javascript" src="script/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            $("button.add-to-cart").click(function () {
+                // todo: 改 AJAX
+                let furnId = $(this).attr("furnId");
+                location.href = "cartServlet?action=addItem&id=" + furnId;
+            })
+        })
+    </script>
 </head>
 
 <body>
@@ -67,8 +77,10 @@
                         <!-- Single Wedge End -->
                         <a href="#offcanvas-cart"
                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
-                            <i class="icon-handbag"> 购物车</i>
-                            <span class="header-action-num">88</span>
+                            <i class="icon-handbag">购物车</i>
+                            <c:if test="${sessionScope.cart.totalCount >= 0}">
+                                <span class="header-action-num">${sessionScope.cart.totalCount}</span>
+                            </c:if>
                         </a>
                         <a href="#offcanvas-mobile-menu"
                            class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
@@ -137,7 +149,7 @@
                                                    data-bs-target="#exampleModal"><i
                                                         class="icon-size-fullscreen"></i></a>
                                             </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
+                                            <button title="Add To Cart" class="add-to-cart" furnId="${furn.id}">Add
                                                 To Cart
                                             </button>
                                         </div>
