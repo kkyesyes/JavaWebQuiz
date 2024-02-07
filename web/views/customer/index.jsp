@@ -19,6 +19,9 @@
                 let furnId = $(this).attr("furnId");
                 location.href = "cartServlet?action=addItem&id=" + furnId;
             })
+            $(".icon-handbag").click(function () {
+                location.href = "cartServlet?action=showCart";
+            })
         })
     </script>
 </head>
@@ -75,7 +78,7 @@
                             </div>
                         </c:if>
                         <!-- Single Wedge End -->
-                        <a href="#offcanvas-cart"
+                        <a href="views/cart/cart.jsp"
                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                             <i class="icon-handbag">购物车</i>
                             <c:if test="${sessionScope.cart.totalCount >= 0}">

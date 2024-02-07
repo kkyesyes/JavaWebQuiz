@@ -26,7 +26,7 @@ public class Furn {
         this.price = price;
         this.sales = sales;
         this.inventory = inventory;
-        if (null != picture && "".equals(picture)) {
+        if (null != picture && !("".equals(picture))) {
             this.picture = picture;
         }
     }

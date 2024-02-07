@@ -1,6 +1,5 @@
 package src.com.kk.furns.web;
 
-import jdk.nashorn.internal.ir.CallNode;
 import src.com.kk.furns.entity.Cart;
 import src.com.kk.furns.entity.CartItem;
 import src.com.kk.furns.entity.Furn;
@@ -19,6 +18,7 @@ import java.io.IOException;
  */
 public class CartServlet extends BasicServlet {
     private FurnService furnService = new FurnServiceImpl();
+
     public void addItem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = DataUtils.parseInt(req.getParameter("id"), 0);
         Furn furn = furnService.queryFurnById(id);
@@ -26,15 +26,59 @@ public class CartServlet extends BasicServlet {
         if (null == furn) {
             return;
         }
-        CartItem item = new CartItem(furn.getId(), furn.getName(), furn.getPrice(), 1, furn.getPrice());
+        CartItem item = new CartItem(furn.getId(), furn.getName(), furn.getPrice(), 1, furn.getPrice(), furn.getPicture());
         Cart cart = (Cart) req.getSession().getAttribute("cart");
         if (null == cart) {
             cart = new Cart();
             req.getSession().setAttribute("cart", cart);
         }
         cart.add(item);
-        System.out.println(cart);
-        String referer = req.getHeader("Referer");
-        resp.sendRedirect(referer);
+        resp.sendRedirect(req.getHeader("Referer"));
+    }
+
+    public void clear(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // todo: 异常处理改进
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+//        if (null == cart) {
+//            return;
+//        }
+        cart.clear();
+        resp.sendRedirect(req.getHeader("Referer"));
+    }
+
+    public void deleteItem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = DataUtils.parseInt(req.getParameter("id"), 0);
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        // todo: 异常处理改进
+//        if (null == cart) {
+//            return;
+//        }
+        cart.deleteItem(id);
+        resp.sendRedirect(req.getHeader("Referer"));
+    }
+
+    public void deleteOne(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = DataUtils.parseInt(req.getParameter("id"), 0);
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        // todo: 异常处理改进
+//        if (null == cart) {
+//            return;
+//        }
+        cart.deleteOne(id);
+        resp.sendRedirect(req.getHeader("Referer"));}
+
+    public void addOne(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = DataUtils.parseInt(req.getParameter("id"), 0);
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        // todo: 异常处理改进
+//        if (null == cart) {
+//            return;
+//        }
+        cart.addOne(id);
+        resp.sendRedirect(req.getHeader("Referer"));
+    }
+
+    public void showCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect(req.getContextPath() + "/views/cart/cart.jsp");
     }
 }

@@ -13,13 +13,19 @@ public class CartItem {
     private BigDecimal price;
     private Integer count;
     private BigDecimal totalPrice;
+    private String picture;
 
-    public CartItem(Integer id, String name, BigDecimal price, Integer count, BigDecimal totalPrice) {
+    public CartItem(Integer id, String name, BigDecimal price, Integer count, BigDecimal totalPrice, String picture) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.count = count;
         this.totalPrice = totalPrice;
+        if (null != picture && !("".equals(picture))) {
+            this.picture = picture;
+        } else {
+            this.picture = "https://img95.699pic.com/photo/60005/6018.jpg_wh860.jpg";
+        }
     }
 
     public Integer getId() {
@@ -62,6 +68,14 @@ public class CartItem {
         this.totalPrice = totalPrice;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     @Override
     public String toString() {
         return "CartItem{" +
@@ -70,6 +84,7 @@ public class CartItem {
                 ", price=" + price +
                 ", count=" + count +
                 ", totalPrice=" + totalPrice +
+                ", picture='" + picture + '\'' +
                 '}';
     }
 }

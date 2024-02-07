@@ -15,7 +15,7 @@ public class CartTest {
 
     @Test
     public void cartAddTest() {
-        CartItem cartItem = new CartItem(34, "木桌", new BigDecimal("35.5"), 1, new BigDecimal("35.5"));
+        CartItem cartItem = new CartItem(34, "木桌", new BigDecimal("35.5"), 1, new BigDecimal("35.5"), "");
 
         cart.add(cartItem);
         cart.add(cartItem);
