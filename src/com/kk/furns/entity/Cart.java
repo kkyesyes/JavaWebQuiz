@@ -2,10 +2,12 @@ package src.com.kk.furns.entity;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * 购物车，包含多个 CartItem
+ *
  * @author KK
  * @version 1.0
  */
@@ -14,26 +16,31 @@ public class Cart {
 
     public Integer getTotalCount() {
         int totalCount = 0;
-        for (Integer i : items.keySet()) {
-            totalCount += items.get(i).getCount();
+        for (Integer key : items.keySet()) {
+            totalCount += items.get(key).getCount();
         }
         return totalCount;
     }
 
     public BigDecimal getTotalPrice() {
         BigDecimal totalCount = new BigDecimal("0");
-        for (Integer i : items.keySet()) {
-            totalCount.add(items.get(i).getTotalPrice());
+        for (Integer key : items.keySet()) {
+            totalCount = totalCount.add(items.get(key).getTotalPrice());
         }
         return totalCount;
     }
 
-//    public List<Furn> getItems() {
-//
-//    }
+    public List<CartItem> getItems() {
+        List<CartItem> furns = new LinkedList<>();
+        for (Integer key : items.keySet()) {
+            furns.add(items.get(key));
+        }
+        return furns;
+    }
 
     /**
-     * 购物车中添加一项 CartItem
+     * 购物车中添加 CartItem
+     *
      * @param cartItem
      */
     public void add(CartItem cartItem) {
@@ -47,7 +54,19 @@ public class Cart {
     }
 
     /**
+     * 购物车中添加一项 CartItem
+     *
+     * @param id
+     */
+    public void addOne(int id) {
+        CartItem item = items.get(id);
+        item.setCount(item.getCount() + 1);
+        item.setTotalPrice(item.getTotalPrice().add(item.getPrice()));
+    }
+
+    /**
      * 购物车中删除一项 CartItem
+     *
      * @param id 将要删除的家居的 id
      */
     public void deleteOne(Integer id) {
@@ -58,8 +77,34 @@ public class Cart {
             items.remove(id);
             return;
         }
-        items.replace(id, new CartItem(items.get(id).getId(), items.get(id).getName(), items.get(id).getPrice(), items.get(id).getCount() - 1, items.get(id).getTotalPrice().subtract(items.get(id).getPrice())));
+        items.replace(id, new CartItem(items.get(id).getId(),
+                items.get(id).getName(),
+                items.get(id).getPrice(),
+                items.get(id).getCount() - 1,
+                items.get(id).getTotalPrice().subtract(items.get(id).getPrice()),
+                items.get(id).getPicture()));
 
+    }
+
+    /**
+     * 购物车中删除一项 CartItem
+     *
+     * @param id 将要删除的家居的 id
+     */
+    public void deleteItem(Integer id) {
+        if (!items.containsKey(id)) {
+            return;
+        }
+        items.remove(id);
+
+    }
+
+    /**
+     *
+     * @param id
+     */
+    public void updateCount(int id) {
+        // todo: updateCount
     }
 
     /**
@@ -68,6 +113,7 @@ public class Cart {
     public void clear() {
         items.clear();
     }
+
 
     @Override
     public String toString() {
