@@ -32,6 +32,10 @@ public class CartServlet extends BasicServlet {
             cart = new Cart();
             req.getSession().setAttribute("cart", cart);
         }
+        if (cart.sizeOf(id) >= furn.getInventory()) {
+            resp.sendRedirect(req.getHeader("Referer"));
+            return;
+        }
         cart.add(item);
         resp.sendRedirect(req.getHeader("Referer"));
     }
@@ -74,6 +78,9 @@ public class CartServlet extends BasicServlet {
 //        if (null == cart) {
 //            return;
 //        }
+        if (cart.sizeOf(id) >= furnService.queryFurnById(id).getInventory()) {
+            return;
+        }
         cart.addOne(id);
         resp.sendRedirect(req.getHeader("Referer"));
     }

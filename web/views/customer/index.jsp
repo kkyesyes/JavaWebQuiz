@@ -16,6 +16,10 @@
         $(function () {
             $("button.add-to-cart").click(function () {
                 // todo: 改 AJAX
+                let furnInventory = $(this).attr("furnInventory");
+                if (furnInventory < 1) {
+                    return false;
+                }
                 let furnId = $(this).attr("furnId");
                 location.href = "cartServlet?action=addItem&id=" + furnId;
             })
@@ -63,7 +67,7 @@
                                 <a>嗨！${sessionScope.member.username}</a>
                             </div>
                             <div class="header-bottom-set dropdown">
-                                <a href="#">订单管理</a>
+                                <a href="orderServlet?action=showOrders">订单管理</a>
                             </div>
                             <div class="header-bottom-set dropdown">
                                 <a href="memberServlet?action=logout">安全退出</a>
@@ -152,8 +156,9 @@
                                                    data-bs-target="#exampleModal"><i
                                                         class="icon-size-fullscreen"></i></a>
                                             </div>
-                                            <button title="Add To Cart" class="add-to-cart" furnId="${furn.id}">Add
-                                                To Cart
+                                            <button title="Add To Cart" class="add-to-cart" furnId="${furn.id}"
+                                                furnInventory="${furn.inventory}">
+                                                添加至购物车<c:if test="${furn.inventory < 1}"><span>【无货】</span></c:if>
                                             </button>
                                         </div>
                                         <div class="content">

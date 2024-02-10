@@ -34,12 +34,8 @@ public class MemberServiceImpl implements MemberService {
      * @return 登录成功返回 true，否则返回 false
      */
     @Override
-    public boolean userLogin(Member member) {
-        Member resultMember = memberDAO.queryMemberByUsernameAndPassword(member);
-        if (resultMember == null) {
-            return false;
-        }
-        return true;
+    public Member userLogin(Member member) {
+        return memberDAO.queryMemberByUsernameAndPassword(member);
     }
 
     /**

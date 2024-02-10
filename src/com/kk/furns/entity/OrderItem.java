@@ -3,33 +3,28 @@ package src.com.kk.furns.entity;
 import java.math.BigDecimal;
 
 /**
- * 购物车单行数据
  * @author KK
  * @version 1.0
  */
-public class CartItem {
+public class OrderItem {
     private Integer id;
     private String name;
-    private BigDecimal price;
     private Integer count;
+    private BigDecimal price;
     private BigDecimal totalPrice;
-    private String picture;
+    private String orderId;
 
-    public CartItem() {
+    public OrderItem() {
 
     }
 
-    public CartItem(Integer id, String name, BigDecimal price, Integer count, BigDecimal totalPrice, String picture) {
+    public OrderItem(Integer id, String name, Integer count, BigDecimal price, BigDecimal totalPrice, String orderId) {
         this.id = id;
         this.name = name;
-        this.price = price;
         this.count = count;
+        this.price = price;
         this.totalPrice = totalPrice;
-        if (null != picture && !("".equals(picture))) {
-            this.picture = picture;
-        } else {
-            this.picture = "https://img95.699pic.com/photo/60005/6018.jpg_wh860.jpg";
-        }
+        this.orderId = orderId;
     }
 
     public Integer getId() {
@@ -48,20 +43,20 @@ public class CartItem {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
     public Integer getCount() {
         return count;
     }
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public BigDecimal getTotalPrice() {
@@ -72,23 +67,23 @@ public class CartItem {
         this.totalPrice = totalPrice;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     @Override
     public String toString() {
-        return "CartItem{" +
+        return "OrderItem{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", price=" + price +
                 ", count=" + count +
+                ", price=" + price +
                 ", totalPrice=" + totalPrice +
-                ", picture='" + picture + '\'' +
+                ", orderId=" + orderId +
                 '}';
     }
 }

@@ -14,6 +14,10 @@ import java.util.List;
 public class Cart {
     private HashMap<Integer, CartItem> items = new HashMap<>();
 
+    public Integer sizeOf(Integer id) {
+        return items.containsKey(id) ? items.get(id).getCount() : 0;
+    }
+
     public Integer getTotalCount() {
         int totalCount = 0;
         for (Integer key : items.keySet()) {
@@ -30,12 +34,12 @@ public class Cart {
         return totalCount;
     }
 
-    public List<CartItem> getItems() {
-        List<CartItem> furns = new LinkedList<>();
-        for (Integer key : items.keySet()) {
-            furns.add(items.get(key));
-        }
-        return furns;
+    public HashMap<Integer, CartItem> getItems() {
+        return items;
+    }
+
+    public boolean isEmpty() {
+        return items.size() == 0;
     }
 
     /**

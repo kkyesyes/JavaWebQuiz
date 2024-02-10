@@ -25,7 +25,8 @@ public class MemberServlet extends BasicServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         Member member = new Member(null, username, password, null);
-        if (memberService.userLogin(member)) {
+        member = memberService.userLogin(member);
+        if (null != member) {
             HttpSession session = req.getSession();
             session.setAttribute("member", member);
             req.getRequestDispatcher("/views/member/login_ok.jsp").forward(req, resp);
