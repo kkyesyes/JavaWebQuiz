@@ -18,8 +18,9 @@ import java.util.Properties;
 public class JDBCUtilsByDruid {
 
     private static DataSource ds;
+    private static ThreadLocal<Connection> threadLocalConn = new ThreadLocal<>();
 
-    //在静态代码块完成 ds初始化
+    // 在静态代码块完成 ds 的初始化
     static {
         Properties properties = new Properties();
         try {
@@ -33,13 +34,66 @@ public class JDBCUtilsByDruid {
 
     }
 
-    //编写getConnection方法
-    public static Connection getConnection() throws SQLException {
-        return ds.getConnection();
+    // 编写 getConnection 方法（使用 ThreadLocal）
+    public static Connection getConnection() {
+        Connection connection = threadLocalConn.get();
+        if (null == connection) {
+            try {
+                connection = ds.getConnection();
+                connection.setAutoCommit(false);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            threadLocalConn.set(connection);
+        }
+        return connection;
     }
 
-    //关闭连接, 老师再次强调： 在数据库连接池技术中，close 不是真的断掉连接
-    //而是把使用的Connection对象放回连接池
+    // 提交事务
+    public static void commit() {
+        Connection connection = threadLocalConn.get();
+        if (null == connection) {
+            return;
+        }
+
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        threadLocalConn.remove();
+    }
+
+    // 回滚事务
+    public static void rollback() {
+        Connection connection = threadLocalConn.get();
+        if (null == connection) {
+            return;
+        }
+
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        threadLocalConn.remove();
+    }
+
+    // 关闭连接（在数据库连接池技术中，close 不是真的断掉连接而是把使用的Connection对象放回连接池）
     public static void close(ResultSet resultSet, Statement statement, Connection connection) {
 
         try {
