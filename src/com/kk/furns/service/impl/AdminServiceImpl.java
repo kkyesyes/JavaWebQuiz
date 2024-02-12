@@ -34,12 +34,8 @@ public class AdminServiceImpl implements AdminService {
      * @return 登录成功返回 true，否则返回 false
      */
     @Override
-    public boolean adminLogin(Admin admin) {
-        Admin resultAdmin = adminDAO.queryAdminByUsernameAndPassword(admin);
-        if (resultAdmin == null) {
-            return false;
-        }
-        return true;
+    public Admin adminLogin(Admin admin) {
+        return adminDAO.queryAdminByUsernameAndPassword(admin);
     }
 
     /**

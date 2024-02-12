@@ -3,24 +3,34 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    
-<!--    <servlet>-->
-<!--        <servlet-name>RegisterServlet</servlet-name>-->
-<!--        <servlet-class>src.com.kk.furns.web.RegisterServlet</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>RegisterServlet</servlet-name>-->
-<!--        <url-pattern>/registerServlet</url-pattern>-->
-<!--    </servlet-mapping>-->
 
-<!--    <servlet>-->
-<!--        <servlet-name>LoginServlet</servlet-name>-->
-<!--        <servlet-class>src.com.kk.furns.web.LoginServlet</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>LoginServlet</servlet-name>-->
-<!--        <url-pattern>/loginServlet</url-pattern>-->
-<!--    </servlet-mapping>-->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>src.com.kk.furns.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/views/manage/*</url-pattern>
+        <url-pattern>/views/admin/manage_menu.html</url-pattern>
+        <url-pattern>/manage/furnServlet/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>MemberFilter</filter-name>
+        <filter-class>src.com.kk.furns.filter.MemberFilter</filter-class>
+        <init-param>
+            <param-name>excludedUrls</param-name>
+            <param-value>/views/member/login.jsp</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>MemberFilter</filter-name>
+        <url-pattern>/views/member/*</url-pattern>
+        <url-pattern>/views/order/*</url-pattern>
+        <url-pattern>/views/cart/*</url-pattern>
+        <url-pattern>/cartServlet/*</url-pattern>
+        <url-pattern>/orderServlet/*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>MemberServlet</servlet-name>

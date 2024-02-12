@@ -52,7 +52,7 @@
                         </div>
                         <!-- Single Wedge Start -->
                         <div class="header-bottom-set dropdown">
-                            <a href="#">后台管理</a>
+                            <a href="">后台管理</a>
                         </div>
                         <div class="header-bottom-set dropdown">
                             <a href="views/manage/furn_add.jsp?pageNo=${requestScope.page.pageNo}">添加家居</a>

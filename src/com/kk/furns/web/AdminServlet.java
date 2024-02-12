@@ -23,12 +23,14 @@ public class AdminServlet extends BasicServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         Admin admin = new Admin(null, username, password, null);
-        if (adminService.adminLogin(admin)) {
-            req.getRequestDispatcher("/views/admin/manage_menu.html").forward(req, resp);
-        } else {
+        Admin resAdmin = adminService.adminLogin(admin);
+        if (null == resAdmin) {
             req.setAttribute("msg", "用户名或密码错误");
             req.setAttribute("username", username);
             req.getRequestDispatcher("/views/admin/manage_login.jsp").forward(req, resp);
+        } else {
+            req.getSession().setAttribute("admin", resAdmin);
+            req.getRequestDispatcher("/views/admin/manage_menu.jsp").forward(req, resp);
         }
     }
 }

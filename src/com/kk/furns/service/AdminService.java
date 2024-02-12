@@ -11,7 +11,7 @@ public interface AdminService {
     boolean adminRegister(Admin admin);
 
     // 管理员登录
-    boolean adminLogin(Admin admin);
+    Admin adminLogin(Admin admin);
 
     // 判断管理员用户名是否存在
     boolean isExistsUsername(String username);
