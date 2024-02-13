@@ -14,7 +14,23 @@
     <script>
         // 页面加载完毕后执行
         $(function () {
-            //
+            $("#username").blur(function () {
+                let username = this.value;
+                $.getJSON("memberServlet",
+                    {
+                        "action": "isExistsMember",
+                        "username": username
+                    },
+                    function (data) {
+                        if (data.isExists) {
+                            $("span.errorMsg").text("用户名为 " + username + " 的会员已存在，不可用！");
+                            return;
+                        }
+                        $("span.errorMsg").text("用户名 " + username + " 可用！");
+                    })
+            })
+
+            // 注册页面回显
             if ("${requestScope.active}" == "register") {
                 $("#register_tab")[0].click();
             }
@@ -137,7 +153,7 @@
                                                 <a class="flote-none" href="javascript:void(0)">Remember me</a>
                                                 <a href="#">Forgot Password?</a>
                                             </div>
-                                            <button type="submit"><span>Login</span></button>
+                                            <button type="submit"><span>会员登录</span></button>
                                         </div>
                                     </form>
                                 </div>

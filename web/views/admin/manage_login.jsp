@@ -2,13 +2,33 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>韩顺平教育-家居网购</title>
     <base href="<%=request.getContextPath() + '/'%>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css"/>
     <link rel="stylesheet" href="assets/css/style.min.css"/>
+    <!--    引入 jQuery-->
+    <script type="text/javascript" src="script/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            $("#username").blur(function () {
+                let username = this.value;
+                $.getJSON("adminServlet",
+                    {
+                        "action": "isExistsUsername",
+                        "username": username
+                    },
+                    function (data) {
+                        if (!data.isExists) {
+                            $("span.errorMsg").text("不存在名为 " + username + " 的管理员！");
+                        }
+                    })
+            })
+
+        })
+    </script>
 </head>
 
 <body>
@@ -38,7 +58,7 @@
                 <!-- Header Logo Start -->
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <a href="index.html"><img width="280px" src="assets/images/logo/logo.png" alt="Site Logo" /></a>
+                        <a href="index.html"><img width="280px" src="assets/images/logo/logo.png" alt="Site Logo"/></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -71,8 +91,9 @@
                                     </span>
                                     <form action="adminServlet" method="post">
                                         <input type="hidden" name="action" value="login">
-                                        <input type="text" name="username" value="${requestScope.username}" placeholder="Username"/>
-                                        <input type="password" name="password" placeholder="Password"/>
+                                        <input id="username" type="text" name="username"
+                                               value="${requestScope.username}" placeholder="Username"/>
+                                        <input id="password" type="password" name="password" placeholder="Password"/>
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox"/>
@@ -111,7 +132,8 @@
                                     <ul class="align-items-center">
                                         <li class="li"><a class="single-link" href="about.html">关于我们</a></li>
                                         <li class="li"><a class="single-link" href="#">交货信息</a></li>
-                                        <li class="li"><a class="single-link" href="privacy-policy.html">隐私与政策</a></li>
+                                        <li class="li"><a class="single-link" href="privacy-policy.html">隐私与政策</a>
+                                        </li>
                                         <li class="li"><a class="single-link" href="#">条款和条件</a></li>
                                         <li class="li"><a class="single-link" href="#">制造</a></li>
                                     </ul>

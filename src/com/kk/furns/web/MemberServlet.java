@@ -1,5 +1,6 @@
 package src.com.kk.furns.web;
 
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import src.com.kk.furns.entity.Member;
 import src.com.kk.furns.service.MemberService;
@@ -8,6 +9,7 @@ import src.com.kk.furns.service.impl.MemberServiceImpl;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.HashMap;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
@@ -17,6 +19,18 @@ import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
  */
 public class MemberServlet extends BasicServlet {
     private MemberService memberService = new MemberServiceImpl();
+
+    /**
+     * 查询是否存在会员
+     */
+    public void isExistsMember(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter("username");
+        boolean isExists = memberService.isExistsUsername(username);
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("isExists", isExists);
+        String resultJson = new Gson().toJson(resultMap);
+        resp.getWriter().write(resultJson);
+    }
 
     /**
      * 用户登录服务
