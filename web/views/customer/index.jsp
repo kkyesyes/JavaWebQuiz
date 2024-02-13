@@ -15,13 +15,25 @@
     <script>
         $(function () {
             $("button.add-to-cart").click(function () {
-                // todo: 改 AJAX
                 let furnInventory = $(this).attr("furnInventory");
                 if (furnInventory < 1) {
                     return false;
                 }
                 let furnId = $(this).attr("furnId");
-                location.href = "cartServlet?action=addItem&id=" + furnId;
+                $.getJSON(
+                    "cartServlet",
+                    {
+                        "action": "addItemByAjax",
+                        "id": furnId
+                    },
+                    function (data) {
+                        if (data.url !== undefined) {
+                            location.href = data.url;
+                            return;
+                        }
+                        $("span.header-action-num").text(data.cartItemCount);
+                    }
+                )
             })
             $(".icon-handbag").click(function () {
                 location.href = "cartServlet?action=showCart";
@@ -85,9 +97,9 @@
                         <a href="views/cart/cart.jsp"
                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                             <i class="icon-handbag">购物车</i>
-                            <c:if test="${sessionScope.cart.totalCount >= 0}">
+<%--                            <c:if test="${sessionScope.cart.totalCount >= 0}">--%>
                                 <span class="header-action-num">${sessionScope.cart.totalCount}</span>
-                            </c:if>
+<%--                            </c:if>--%>
                         </a>
                         <a href="#offcanvas-mobile-menu"
                            class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
@@ -157,8 +169,9 @@
                                                         class="icon-size-fullscreen"></i></a>
                                             </div>
                                             <button title="Add To Cart" class="add-to-cart" furnId="${furn.id}"
-                                                furnInventory="${furn.inventory}">
-                                                添加至购物车<c:if test="${furn.inventory < 1}"><span>【无货】</span></c:if>
+                                                    furnInventory="${furn.inventory}">
+                                                添加至购物车<c:if
+                                                    test="${furn.inventory < 1}"><span>【无货】</span></c:if>
                                             </button>
                                         </div>
                                         <div class="content">

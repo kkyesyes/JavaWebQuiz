@@ -1,5 +1,6 @@
 package src.com.kk.furns.web;
 
+import com.google.gson.Gson;
 import src.com.kk.furns.entity.Cart;
 import src.com.kk.furns.entity.CartItem;
 import src.com.kk.furns.entity.Furn;
@@ -11,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * @author KK
@@ -38,6 +40,31 @@ public class CartServlet extends BasicServlet {
         }
         cart.add(item);
         resp.sendRedirect(req.getHeader("Referer"));
+    }
+
+    public void addItemByAjax(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = DataUtils.parseInt(req.getParameter("id"), 0);
+        Furn furn = furnService.queryFurnById(id);
+        // todo: 异常处理改进
+        if (null == furn) {
+            return;
+        }
+        CartItem item = new CartItem(furn.getId(), furn.getName(), furn.getPrice(), 1, furn.getPrice(), furn.getPicture());
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
+        if (null == cart) {
+            cart = new Cart();
+            req.getSession().setAttribute("cart", cart);
+        }
+        if (cart.sizeOf(id) >= furn.getInventory()) {
+            resp.sendRedirect(req.getHeader("Referer"));
+            return;
+        }
+        cart.add(item);
+        Integer cartItemCount = cart.getTotalCount();
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("cartItemCount", cartItemCount);
+        String resultJson = new Gson().toJson(resultMap);
+        resp.getWriter().write(resultJson);
     }
 
     public void clear(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
