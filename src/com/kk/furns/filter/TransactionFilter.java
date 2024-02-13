@@ -23,7 +23,7 @@ public class TransactionFilter implements Filter {
             JDBCUtilsByDruid.commit();
         } catch (Exception e) {
             JDBCUtilsByDruid.rollback();
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
