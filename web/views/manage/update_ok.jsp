@@ -4,47 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>韩顺平教育-家居网购</title>
-    <base href="<%=request.getContextPath() + '/'%>">
-    <!-- 移动端适配 -->
+    <base href="<%=request.getContextPath() + "/"%>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css"/>
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css"/>
-    <link rel="stylesheet" href="assets/css/style.min.css">
-    <style type="text/css">
-        #picture {
-            position: relative;
-        }
+    <link rel="stylesheet" href="assets/css/style.min.css"/>
 
-        input[type="file"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 150px;
-            opacity: 0;
-            cursor: pointer;
-        }
-    </style>
-
-    <script type="text/javascript">
-        function prev(event) {
-            //获取展示图片的区域
-            let img = document.getElementById("prevView");
-            //获取文件对象
-            let file = event.files[0];
-            //获取文件阅读器： Js的一个类，直接使用即可
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function () {
-                //给img的src设置图片url
-                img.setAttribute("src", this.result);
-            }
-        }
-    </script>
 </head>
-
 <body>
 <!-- Header Area start  -->
 <div class="header section">
+    <!-- Header Top Message Start -->
     <!-- Header Top  End -->
     <!-- Header Bottom  Start -->
     <div class="header-bottom d-none d-lg-block">
@@ -57,17 +27,17 @@
                     </div>
                 </div>
                 <!-- Header Logo End -->
-
                 <!-- Header Action Start -->
                 <div class="col align-self-center">
                     <div class="header-actions">
-
-                        <!-- Single Wedge Start -->
+<%--                        <div class="header-bottom-set dropdown">--%>
+<%--                            <a>欢迎: ${sessionScope.member.username}</a>--%>
+<%--                        </div>--%>
+<%--                        <div class="header-bottom-set dropdown">--%>
+<%--                            <a href="orderServlet?action=showOrders">订单管理</a>--%>
+<%--                        </div>--%>
                         <div class="header-bottom-set dropdown">
-                            <a href="#">家居管理</a>
-                        </div>
-                        <div class="header-bottom-set dropdown">
-                            <a href="#">订单管理</a>
+                            <a href="adminServlet?action=logout">安全退出</a>
                         </div>
                     </div>
                 </div>
@@ -75,7 +45,6 @@
             </div>
         </div>
     </div>
-    <!-- Header Bottom  End -->
     <!-- Header Bottom  Start 手机端的header -->
     <div class="header-bottom d-lg-none sticky-nav bg-white">
         <div class="container position-relative">
@@ -83,7 +52,8 @@
                 <!-- Header Logo Start -->
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <a href="index.html"><img width="280px" src="assets/images/logo/logo.png" alt="Site Logo"/></a>
+                        <a href="index.jsp"><img width="280px" src="assets/images/logo/logo.png"
+                                                  alt="Site Logo"/></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -94,69 +64,24 @@
     <div style="width: 100%;height: 50px;background-color: black"></div>
     <!-- Main Menu End -->
 </div>
-<!-- Cart Area Start -->
-<div class="cart-main-area pt-100px pb-100px">
+<!-- Header Area End  -->
+<!-- login area start -->
+<div class="login-register-area pt-70px pb-100px">
     <div class="container">
-        <h3 class="cart-page-title">家居后台管理-修改家居</h3>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <form action="manage/furnServlet?action=update&id=${requestScope.selectedFurn.id}&pageNo=${requestScope.pageNo}"
-                      method="post"
-                      enctype="multipart/form-data">
-                    <div class="table-content table-responsive cart-table-content">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>图片</th>
-                                <th>家居名</th>
-                                <th>商家</th>
-                                <th>价格</th>
-                                <th>销量</th>
-                                <th>库存</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="product-thumbnail">
-                                    <div id="picture">
-                                        <img id="prevView" class="img-responsive ml-3"
-                                             src="${requestScope.selectedFurn.picture}"
-                                             alt=""/>
-                                        <input type="file" name="pic" id="" value="${requestScope.selectedFurn.picture}" onchange="prev(this)"/>
-                                    </div>
-                                </td>
-                                <td class="product-name"><input name="name" style="width: 60%" type="text"
-                                                                value="${requestScope.selectedFurn.name}"/></td>
-                                <td class="product-name"><input name="maker" style="width: 90%" type="text"
-                                                                value="${requestScope.selectedFurn.maker}"/></td>
-                                <td class="product-price-cart"><input name="price" style="width: 90%" type="text"
-                                                                      value="${requestScope.selectedFurn.price}"/></td>
-                                <td class="product-quantity">
-                                    <input name="sales" style="width: 90%" type="text"
-                                           value="${requestScope.selectedFurn.sales}"/>
-                                </td>
-                                <td class="product-quantity">
-                                    <input name="inventory" style="width: 90%" type="text"
-                                           value="${requestScope.selectedFurn.inventory}"/>
-                                </td>
-                                <td>
-                                    <!--                                    <a href="#"><i class="icon-pencil"></i></a>-->
-                                    <!--                                    <a href="#"><i class="icon-close"></i></a>-->
-                                    <input type="submit"
-                                           style="width: 90%;background-color: silver;border: silver;border-radius: 20%;"
-                                           value="修改家居"/>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a class="active" href="manage/furnServlet?action=page&pageNo=${requestScope.pageNo}">
+                            <h4>家居信息更新成功，点击返回家居管理页</h4>
+                        </a>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Cart Area End -->
+<!-- login area end -->
 
 <!-- Footer Area Start -->
 <div class="footer-area">
@@ -176,8 +101,7 @@
                                     <ul class="align-items-center">
                                         <li class="li"><a class="single-link" href="about.html">关于我们</a></li>
                                         <li class="li"><a class="single-link" href="#">交货信息</a></li>
-                                        <li class="li"><a class="single-link" href="privacy-policy.html">隐私与政策</a>
-                                        </li>
+                                        <li class="li"><a class="single-link" href="privacy-policy.html">隐私与政策</a></li>
                                         <li class="li"><a class="single-link" href="#">条款和条件</a></li>
                                         <li class="li"><a class="single-link" href="#">制造</a></li>
                                     </ul>
@@ -222,7 +146,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 text-left">
-                        <p class="copy-text">Copyright &copy; 2021 韩顺平教育~</p>
+                        <p class="copy-text">Copyright &copy; 2021 韩顺平教育</p>
                     </div>
                 </div>
             </div>

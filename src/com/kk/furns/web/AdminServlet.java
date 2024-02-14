@@ -47,4 +47,16 @@ public class AdminServlet extends BasicServlet {
             req.getRequestDispatcher("/views/admin/manage_menu.jsp").forward(req, resp);
         }
     }
+
+    /**
+     * 管理员退出登录
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().invalidate();
+        resp.sendRedirect(req.getContextPath() + "/index.jsp");
+    }
 }

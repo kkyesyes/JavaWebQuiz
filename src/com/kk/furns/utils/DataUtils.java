@@ -10,6 +10,8 @@ import java.util.Map;
  */
 public class DataUtils {
 
+    public static String FURN_IMG_DIRECTORY = "assets/images/product-image";
+
     //将方法，封装到静态方法，方便使用
     public static <T> T copyParamToBean(Map value, T bean) {
         try {
