@@ -2,6 +2,7 @@
 ### ☠️ 项目介绍
 此项目为 JavaWeb 章节小测验 - 家居网购 
 [![Static Badge](https://img.shields.io/badge/项目笔记地址-blue)](https://kkyesyes.github.io/2023/11/25/JavaProjects)
+![License](https://img.shields.io/badge/license-MIT-yellow)
 
 ### ☢️ 项目技术栈
 - HTML / CSS / JS
